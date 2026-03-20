@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>HIIT Baseado em Evidências — Prof. Nathan Aguiar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cyan:#5ce1e6;
+  --cyan-dim:rgba(92,225,230,.12);
+  --bg:#000000;
+  --bg2:#0d1117;
+  --bg3:#111318;
+  --card:#13171f;
+  --border:rgba(92,225,230,.18);
+  --border2:rgba(255,255,255,.08);
+  --white:#ffffff;
+  --gray:#a0aab4;
+  --gray2:#5a6370;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Open Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+
+.container{max-width:920px;margin:0 auto;padding:0 1.5rem}
+.cyan{color:var(--cyan)}
+.tag{display:inline-block;background:var(--cyan-dim);color:var(--cyan);border:1px solid var(--border);border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.35rem 1rem}
+
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  background:var(--cyan);color:#000;font-family:'Poppins',sans-serif;
+  font-weight:800;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;
+  padding:1.1rem 2.8rem;border-radius:8px;border:none;cursor:pointer;
+  text-decoration:none;transition:transform .2s,box-shadow .2s;
+  box-shadow:0 0 32px rgba(92,225,230,.35);white-space:nowrap;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 48px rgba(92,225,230,.5)}
+.btn-primary:active{transform:scale(.98)}
+.btn-primary.large{font-size:1.15rem;padding:1.3rem 3.2rem}
+
+.divider{width:60px;height:3px;background:var(--cyan);border-radius:2px;margin:.75rem auto 0}
+
+@keyframes pulse-ring{0%{transform:scale(.8);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+.pulse-dot{position:relative;display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--cyan);flex-shrink:0}
+.pulse-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--cyan);animation:pulse-ring 1.5s ease-out infinite}
+
+/* VIDEO BG */
+.video-section{position:relative;overflow:hidden}
+.video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:0}
+.video-overlay{position:absolute;inset:0;background:rgba(0,0,0,.88);pointer-events:none;z-index:1}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center}
+.hero-inner{position:relative;z-index:2;text-align:center;padding:7rem 0 6rem;width:100%}
+.hero-eyebrow{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:2rem}
+.hero-h1{font-family:'Poppins',sans-serif;font-size:clamp(2.4rem,6vw,4rem);font-weight:900;line-height:1.1;margin-bottom:1.25rem;letter-spacing:-.02em}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--gray);max-width:620px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-cta-group{display:flex;flex-direction:column;align-items:center;gap:.75rem}
+.hero-guarantee{display:flex;align-items:center;gap:.5rem;color:var(--gray);font-size:.8rem}
+.hero-guarantee svg{color:var(--cyan);flex-shrink:0}
+
+section{padding:5rem 0}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-header h2{font-family:'Poppins',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;line-height:1.2}
+.section-header p{color:var(--gray);max-width:540px;margin:.75rem auto 0;font-size:.95rem}
+
+/* PROBLEM — 4 cols */
+#problem{background:var(--bg2)}
+.problem-list{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.25rem;margin-top:2.5rem
+}
+@media(max-width:860px){.problem-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.problem-list{grid-template-columns:1fr}}
+.problem-item{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:1.4rem;display:flex;flex-direction:column;gap:.6rem}
+.problem-icon{width:34px;height:34px;border-radius:8px;background:rgba(255,77,77,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+.problem-item h4{font-size:.88rem;font-weight:700;font-family:'Poppins',sans-serif;line-height:1.3}
+.problem-item p{font-size:.81rem;color:var(--gray);line-height:1.5}
+
+/* SOLUTION BANNER */
+#solution-banner{background:linear-gradient(135deg,var(--bg3) 0%,#0a1520 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;padding:4rem 0}
+#solution-banner h2{font-family:'Poppins',sans-serif;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;line-height:1.3;max-width:700px;margin:1rem auto}
+
+/* PRODUCT */
+#product{padding:5rem 0}
+.book-showcase{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+@media(max-width:680px){.book-showcase{grid-template-columns:1fr}}
+.book-visual{border-radius:16px;overflow:hidden;aspect-ratio:3/4;position:relative}
+.book-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.book-info h3{font-family:'Poppins',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:1rem;line-height:1.3}
+.book-info p{color:var(--gray);font-size:.92rem;line-height:1.7;margin-bottom:1rem}
+.chapter-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem}
+.chapter-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.88rem;color:var(--gray)}
+.chapter-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);flex-shrink:0;margin-top:.45rem}
+
+/* CURRICULUM */
+#curriculum{background:var(--bg2)}
+.curriculum-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+@media(max-width:600px){.curriculum-grid{grid-template-columns:1fr}}
+.curr-card{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:1.5rem}
+.curr-part{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:.5rem}
+.curr-card h3{font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.75rem}
+.curr-topics{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.curr-topics li{font-size:.83rem;color:var(--gray);display:flex;align-items:flex-start;gap:.5rem}
+.curr-topics li::before{content:'→';color:var(--cyan);flex-shrink:0;font-size:.75rem;margin-top:.1rem}
+
+/* BONUS */
+#bonus{background:var(--bg)}
+.bonus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.bonus-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;position:relative;overflow:hidden}
+.bonus-card::after{content:'BÔNUS';position:absolute;top:16px;right:-28px;background:var(--cyan);color:#000;font-size:.6rem;font-weight:900;letter-spacing:.1em;padding:.2rem 2.5rem;transform:rotate(45deg)}
+.bonus-icon{font-size:2rem;margin-bottom:1rem}
+.bonus-card h3{font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem;line-height:1.3}
+.bonus-card p{color:var(--gray);font-size:.86rem;line-height:1.6}
+.bonus-value{display:inline-block;margin-top:1rem;font-size:.75rem;color:var(--cyan);font-weight:700;border:1px solid var(--border);border-radius:4px;padding:.2rem .6rem}
+
+/* PROOF */
+#proof{background:var(--bg2)}
+.proof-numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:4rem}
+.proof-stat{text-align:center;padding:2rem 1rem;background:var(--card);border:1px solid var(--border2);border-radius:12px}
+.proof-stat-num{font-family:'Poppins',sans-serif;font-size:2.2rem;font-weight:900;color:var(--cyan);display:block;line-height:1}
+.proof-stat-label{font-size:.8rem;color:var(--gray);margin-top:.4rem;display:block;text-transform:uppercase;letter-spacing:.08em}
+.testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem}
+.testimonial{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:1.5rem}
+.testimonial-stars{color:var(--cyan);font-size:.9rem;letter-spacing:.1em;margin-bottom:.75rem}
+.testimonial p{font-size:.88rem;color:var(--gray);line-height:1.65;font-style:italic;margin-bottom:1rem}
+.testimonial-author{display:flex;align-items:center;gap:.75rem}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--cyan-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--cyan);flex-shrink:0}
+.testimonial-author div{font-size:.82rem}
+.testimonial-author strong{display:block;color:var(--white)}
+.testimonial-author span{color:var(--gray2)}
+
+/* ABOUT */
+#about{background:var(--bg)}
+.about-inner{display:grid;grid-template-columns:1fr 2fr;gap:3rem;align-items:start}
+@media(max-width:680px){.about-inner{grid-template-columns:1fr}}
+.about-photo{border-radius:14px;overflow:hidden;border:1px solid var(--border)}
+.about-photo img{width:100%;display:block;object-fit:cover;object-position:top}
+.credential-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin:1.25rem 0}
+.credential-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.88rem;color:var(--gray)}
+.credential-list li svg{width:16px;height:16px;color:var(--cyan);flex-shrink:0;margin-top:.15rem}
+.about-content h2{font-family:'Poppins',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;margin-bottom:1rem}
+.about-content p{color:var(--gray);font-size:.92rem;line-height:1.7;margin-bottom:1rem}
+
+/* PRICING */
+#pricing{background:var(--bg2)}
+.pricing-box{max-width:520px;margin:0 auto;background:var(--card);border:2px solid var(--cyan);border-radius:20px;padding:2.5rem;text-align:center;position:relative}
+.pricing-box::before{content:'OFERTA DE LANÇAMENTO';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--cyan);color:#000;font-size:.65rem;font-weight:900;letter-spacing:.12em;padding:.3rem 1.2rem;border-radius:999px;white-space:nowrap}
+.pricing-original{font-size:.9rem;color:var(--gray2);text-decoration:line-through;margin-bottom:.25rem}
+.pricing-price{font-family:'Poppins',sans-serif;font-size:3.5rem;font-weight:900;color:var(--cyan);line-height:1;margin-bottom:.3rem}
+.pricing-price sup{font-size:1.5rem;vertical-align:super;line-height:0}
+.pricing-installments{font-size:.82rem;color:var(--gray);margin-bottom:2rem}
+.pricing-includes{list-style:none;text-align:left;margin-bottom:2rem;display:flex;flex-direction:column;gap:.75rem}
+.pricing-includes li{display:flex;align-items:flex-start;gap:.75rem;font-size:.88rem}
+.pricing-includes li svg{width:16px;height:16px;color:var(--cyan);flex-shrink:0;margin-top:.15rem}
+.guarantee-bar{margin-top:1.5rem;padding:1rem;background:rgba(92,225,230,.05);border:1px solid var(--border);border-radius:10px;display:flex;align-items:flex-start;gap:.75rem;text-align:left}
+.guarantee-bar svg{width:28px;height:28px;color:var(--cyan);flex-shrink:0;margin-top:.1rem}
+.guarantee-bar p{font-size:.78rem;color:var(--gray);line-height:1.5}
+.guarantee-bar strong{color:var(--white)}
+
+/* FAQ */
+#faq{background:var(--bg)}
+.faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem}
+.faq-item{background:var(--card);border:1px solid var(--border2);border-radius:10px;overflow:hidden}
+.faq-q{width:100%;text-align:left;background:none;border:none;color:var(--white);font-family:'Open Sans',sans-serif;font-size:.92rem;font-weight:600;padding:1.25rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .2s}
+.faq-q:hover{color:var(--cyan)}
+.faq-arrow{width:20px;height:20px;flex-shrink:0;transition:transform .3s;color:var(--cyan)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;font-size:.88rem;color:var(--gray);line-height:1.7;padding:0 1.5rem}
+.faq-item.open .faq-a{max-height:320px;padding:.25rem 1.5rem 1.25rem}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+
+/* FINAL CTA */
+#final-cta{background:linear-gradient(180deg,var(--bg) 0%,#05111a 100%);padding:6rem 0;text-align:center}
+#final-cta h2{font-family:'Poppins',sans-serif;font-size:clamp(1.6rem,4vw,2.5rem);font-weight:900;line-height:1.2;margin-bottom:1rem}
+#final-cta p{color:var(--gray);max-width:500px;margin:0 auto 2.5rem;font-size:.95rem}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border2);padding:2rem 0;text-align:center;font-size:.78rem;color:var(--gray2)}
+footer a{color:var(--gray);text-decoration:none}
+footer a:hover{color:var(--cyan)}
+
+/* STICKY — acima do footer, sem overlap */
+#sticky-cta{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:rgba(13,17,23,.96);backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);
+  padding:.85rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  transform:translateY(100%);transition:transform .4s ease;
+}
+#sticky-cta.visible{transform:translateY(0)}
+.sticky-info p{font-size:.78rem;color:var(--gray);line-height:1.3}
+.sticky-info strong{color:var(--white);font-size:.88rem;display:block}
+#sticky-cta .btn-primary{padding:.75rem 2rem;font-size:.85rem;flex-shrink:0}
+@media(max-width:520px){.sticky-info{display:none}}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section id="hero" class="video-section">
+  <video class="video-bg" autoplay loop muted playsinline>
+    <source src="https://res.cloudinary.com/dat92aqiv/video/upload/v1774013623/Whisk_mjn0cdoin2nlzzyi1soyatotgtm5qtlhzzyi1co_m2ln5h.mp4" type="video/mp4"/>
+  </video>
+  <div class="video-overlay"></div>
+  <div class="container" style="position:relative;z-index:2;width:100%">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <div class="pulse-dot"></div>
+        <span class="tag">Novo · Edição de Lançamento</span>
+      </div>
+      <h1 class="hero-h1">
+        <span class="cyan">HIIT</span> que funciona<br>começa com ciência
+      </h1>
+      <p class="hero-sub">
+        O guia definitivo para personal trainers que querem prescrever treinamento intervalado com precisão, individualização e base científica real — não com achismo.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#pricing" class="btn-primary large">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Quero acessar agora
+        </a>
+        <div class="hero-guarantee">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Garantia de 7 dias · Pagamento 100% seguro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">O problema</span>
+      <h2 style="margin-top:.75rem">O HIIT que você vê no mercado está <span class="cyan">errado</span></h2>
+      <p>A maioria dos personal trainers prescreve HIIT por protocolos prontos, sem considerar quem está na frente deles.</p>
+    </div>
+    <div class="problem-list">
+      <div class="problem-item reveal">
+        <div class="problem-icon">⚠</div>
+        <div>
+          <h4>Intensidade absoluta, não relativa</h4>
+          <p>A mesma velocidade para um cardiopata e um atleta. Isso não é prescrição — é imprudência.</p>
+        </div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-icon">⚠</div>
+        <div>
+          <h4>HIIT sem avaliação física</h4>
+          <p>Como individualizar sem dados? FCmáx, VO₂máx e limiares não são opcionais — são o ponto de partida.</p>
+        </div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-icon">⚠</div>
+        <div>
+          <h4>Protocolos copiados da internet</h4>
+          <p>Tabata de 4 minutos virou sinônimo de HIIT. Mas há 10 tipos com lógicas fisiológicas distintas.</p>
+        </div>
+      </div>
+      <div class="problem-item reveal">
+        <div class="problem-icon">⚠</div>
+        <div>
+          <h4>Resultados medíocres</h4>
+          <p>Sem alvo fisiológico definido, o treino pode não gerar adaptação — ou gerar lesão.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION BANNER -->
+<section id="solution-banner">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <span class="tag">A solução</span>
+      <h2>Existe um método para prescrever HIIT com <span class="cyan">precisão científica</span> — e qualquer profissional pode aprender</h2>
+      <p style="color:var(--gray);max-width:560px;margin:1.25rem auto 0;font-size:.95rem">
+        HIIT Baseado em Evidências reúne tudo que você precisa: fundamentos fisiológicos, avaliação aplicada e 10 protocolos prontos para usar amanhã.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT com vídeo de fundo -->
+<section id="product" class="video-section">
+  <video class="video-bg" autoplay loop muted playsinline>
+    <source src="https://res.cloudinary.com/dat92aqiv/video/upload/v1774015463/27539-364430966_small_gad0ak.mp4" type="video/mp4"/>
+  </video>
+  <div class="video-overlay"></div>
+  <div class="container" style="position:relative;z-index:2">
+    <div class="book-showcase">
+      <div class="reveal">
+        <div class="book-visual">
+          <img src="https://res.cloudinary.com/dat92aqiv/image/upload/v1774014130/Livro_mockup_cvhjb8.png" alt="Mockup do livro HIIT Baseado em Evidências"/>
+        </div>
+      </div>
+      <div class="book-info reveal">
+        <h3>Mais que um eBook.<br>Um sistema de raciocínio para prescrição.</h3>
+        <p>
+          Este material não entrega protocolos para copiar. Ele te ensina a <strong>pensar a prescrição</strong> — como individualizar a intensidade, qual teste escolher, quando usar cada método e como progredir com segurança.
+        </p>
+        <p>
+          Escrito por um mestrando em Ciências da Saúde com base na melhor evidência disponível. Linguagem direta, aplicável e sem achismo.
+        </p>
+        <ul class="chapter-list">
+          <li>Por que HIIT não é moda — e tem mais de 100 anos de história</li>
+          <li>Avaliação física como pré-requisito inegociável</li>
+          <li>Como definir alta intensidade com critérios objetivos</li>
+          <li>Os 4 tipos de HIIT e suas diferenças fisiológicas reais</li>
+          <li>10 protocolos prontos, com estrutura completa e referências</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Conteúdo</span>
+      <h2 style="margin-top:.75rem">O que você vai aprender</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="curriculum-grid">
+      <div class="curr-card reveal">
+        <div class="curr-part">Parte I · Fundamentos</div>
+        <h3>Capítulos 1 a 4</h3>
+        <ul class="curr-topics">
+          <li>O que é HIIT e por que ele funciona</li>
+          <li>Por que intensidade relativa muda tudo</li>
+          <li>Como escolher e aplicar testes de avaliação</li>
+          <li>Alternativas sem teste para consultoria online</li>
+          <li>Parâmetros mecânicos e psicofisiológicos</li>
+          <li>Os 4 tipos de HIIT: Curto, Longo, SIT e RST</li>
+        </ul>
+      </div>
+      <div class="curr-card reveal">
+        <div class="curr-part">Parte II · Protocolos</div>
+        <h3>Capítulos 5 a 8</h3>
+        <ul class="curr-topics">
+          <li>3 protocolos de HIIT Curto (100–120% iVO₂máx)</li>
+          <li>3 protocolos de HIIT Longo (90–100% iVO₂máx)</li>
+          <li>2 protocolos de SIT (supramáximo, all-out)</li>
+          <li>2 protocolos de RST (sprints ≤10 s)</li>
+          <li>Estrutura completa: aquecimento, série e volta à calma</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BONUS -->
+<section id="bonus" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Bônus exclusivos</span>
+      <h2 style="margin-top:.75rem">Você não compra um eBook.<br>Você acessa um ecossistema.</h2>
+      <p>Dois bônus incluídos para quem adquirir na pré-venda de lançamento.</p>
+    </div>
+    <div class="bonus-grid">
+      <div class="bonus-card reveal">
+        <div class="bonus-icon">🎬</div>
+        <h3>Masterclass completa de avaliação e prescrição</h3>
+        <p>
+          Aprenda nos detalhes como fazer uma avaliação completa de aptidão cardiorrespiratória e como usar os dados da avaliação na prescrição eficaz do HIIT. Casos reais, raciocínio aplicado e decisões que fazem diferença na prática.
+        </p>
+        <span class="bonus-value">+ R$ 97 de valor agregado</span>
+      </div>
+      <div class="bonus-card reveal">
+        <div class="bonus-icon">⚡</div>
+        <h3>HIIT Lab — Ferramenta Digital</h3>
+        <p>
+          Estimativa do VO₂máx à distância, sem teste de esforço, além da estimativa de frequência cardíaca máxima, frequência cardíaca de reserva e zonas de treinamento. E o principal: geração de protocolos individualizados com imagens exportáveis que facilitam o entendimento do aluno e agregam valor no seu trabalho.
+        </p>
+        <span class="bonus-value">Acesso exclusivo para compradores</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Evidências</span>
+      <h2 style="margin-top:.75rem">Baseado em ciência real</h2>
+      <p>O material foi construído sobre a literatura científica mais robusta disponível sobre HIIT.</p>
+    </div>
+    <div class="proof-numbers reveal">
+      <div class="proof-stat">
+        <span class="proof-stat-num">30+</span>
+        <span class="proof-stat-label">referências científicas</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-stat-num">10</span>
+        <span class="proof-stat-label">protocolos validados</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-stat-num">4</span>
+        <span class="proof-stat-label">tipos de HIIT detalhados</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-stat-num">51</span>
+        <span class="proof-stat-label">páginas de conteúdo</span>
+      </div>
+    </div>
+    <div class="testimonials">
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"Finalmente um material que explica o porquê de cada escolha. Apliquei com meus alunos na primeira semana e os resultados foram completamente diferentes."</p>
+        <div class="testimonial-author">
+          <div class="avatar">MC</div>
+          <div><strong>Marcela C.</strong><span>Personal Trainer · Goiânia</span></div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"Trabalho com atletas de endurance há anos. Esse material organizou tudo que eu aprendia de forma fragmentada em outros cursos. A parte de individualização é ouro."</p>
+        <div class="testimonial-author">
+          <div class="avatar">RP</div>
+          <div><strong>Rodrigo P.</strong><span>Preparador físico · São Paulo</span></div>
+        </div>
+      </div>
+      <div class="testimonial reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"Já li muita coisa sobre HIIT. Esse é diferente: parte da fisiologia, mas chega na prática de forma clara. Recomendo para qualquer profissional de Ed. Física."</p>
+        <div class="testimonial-author">
+          <div class="avatar">FS</div>
+          <div><strong>Fernanda S.</strong><span>CREF · Belo Horizonte</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--bg2)">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-photo reveal">
+        <img src="https://res.cloudinary.com/dat92aqiv/image/upload/v1774014708/Generated_Image_March_19_2026_-_3_08PM_xkmbxa.png" alt="Prof. Nathan Aguiar"/>
+      </div>
+      <div class="about-content reveal">
+        <span class="tag">Quem escreveu</span>
+        <h2 style="margin-top:.75rem">Prof. Nathan Aguiar</h2>
+        <p>
+          Treinador, professor e pesquisador. Minha trajetória é movida por inquietações, como: por que os profissionais prescrevem treinos tão ineficazes, mesmo com décadas de evidência disponível? Por que o treino aeróbio é tão negligenciado pelos profissionais?
+        </p>
+        <p>
+          Este eBook nasce dessas perguntas — e da responsabilidade de transformar fisiologia complexa em decisões práticas, acessíveis a qualquer profissional comprometido com a excelência.
+        </p>
+        <ul class="credential-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Mestrando em Ciências da Saúde · FM-UFG · Bolsista CAPES
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Bacharel em Educação Física · FEFD/UFG
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Especialista em Bases Fisiológicas do Treinamento e Nutrição Esportiva
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Pesquisador com foco em exercício físico aplicado à saúde e populações clínicas
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Investimento</span>
+      <h2 style="margin-top:.75rem">Tudo que você precisa,<br>em um único acesso</h2>
+    </div>
+    <div class="pricing-box reveal">
+      <p style="font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:.75rem">O que está incluído:</p>
+      <ul class="pricing-includes">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span><strong>eBook HIIT Baseado em Evidências</strong> (PDF, 51 páginas)</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span><strong>Bônus: Masterclass</strong> — aula completa de avaliação e prescrição com o autor, com exemplos de casos reais</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span><strong>Bônus: HIIT Lab</strong> — ferramenta digital de prescrição individualizada</span>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Acesso imediato após confirmação do pagamento</span>
+        </li>
+      </ul>
+      <p class="pricing-original">De R$ 97,00</p>
+      <p class="pricing-price"><sup>R$</sup>37<span style="font-size:1.8rem">,90</span></p>
+      <p class="pricing-installments">ou 2× de R$ 19,95 · 3× de R$ 13,53 sem juros</p>
+      <a href="https://pay.kiwify.com.br/azAiSmf" target="_blank" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Garantir meu acesso agora
+      </a>
+      <div class="guarantee-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <p><strong>Garantia incondicional de 7 dias.</strong> Se por qualquer motivo você não ficar satisfeito, devolvemos 100% do seu investimento. Sem perguntas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Dúvidas frequentes</span>
+      <h2 style="margin-top:.75rem">Perguntas e respostas</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Este material serve para quem está começando?
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">O eBook foi escrito para profissionais de Educação Física e personal trainers — de iniciantes a experientes. Os fundamentos são explicados de forma acessível, mas sem perder o rigor técnico. Se você tem graduação ou está cursando, vai aproveitar 100% do conteúdo.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Preciso de equipamentos especiais para aplicar os protocolos?
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">Não. O material aborda protocolos para diferentes contextos — de esteira a campo aberto, de cicloergômetro a corrida de rua. Há também soluções alternativas para quando não há equipamento disponível para avaliação.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          A masterclass está disponível imediatamente?
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">O eBook e o HIIT Lab estão disponíveis imediatamente após a confirmação do pagamento. A masterclass será disponibilizada em breve — todos os compradores receberão o acesso automaticamente assim que estiver pronta, sem custo adicional.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O que é o HIIT Lab e como funciona?
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">O HIIT Lab é uma ferramenta web exclusiva para compradores do eBook. Nela você insere os dados do aluno e a ferramenta calcula automaticamente o VO₂máx estimado, as zonas de frequência cardíaca e gera os protocolos individualizados com imagens exportáveis.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como funciona a garantia de 7 dias?
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">Você tem 7 dias corridos após a compra para testar o material. Se não ficar satisfeito por qualquer motivo, basta solicitar o reembolso diretamente pela plataforma de pagamento — o processo é simples e sem burocracia.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O conteúdo tem base científica ou é empírico?
+          <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">Todo o conteúdo é fundamentado em literatura científica revisada por pares, com mais de 30 referências bibliográficas de estudos clínicos e revisões sistemáticas. Além disso, o autor tem experiência profissional aplicando protocolos de HIIT na prática, o que garante que a teoria se traduza em decisões reais e aplicáveis. Sem achismo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="final-cta">
+  <div class="container">
+    <div class="reveal">
+      <span class="tag">Última chamada</span>
+      <h2 style="margin-top:1rem">
+        Chega de prescrever HIIT<br>no <span class="cyan">achismo</span>
+      </h2>
+      <p>Você tem a formação. Agora você precisa do sistema.</p>
+      <a href="https://pay.kiwify.com.br/azAiSmf" target="_blank" class="btn-primary large">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Quero meu acesso agora
+      </a>
+      <div style="margin-top:1.25rem;display:flex;align-items:center;justify-content:center;gap:.5rem;color:var(--gray);font-size:.78rem">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Garantia de 7 dias · Acesso imediato · Pagamento seguro
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER — padding-bottom para não ficar sob o sticky -->
+<footer style="padding-bottom:5rem">
+  <div class="container">
+    <p style="margin-bottom:.5rem">
+      <strong style="color:var(--white)">HIIT Baseado em Evidências</strong> · Prof. Nathan Aguiar
+    </p>
+    <p>
+      <a href="#">Política de Privacidade</a> &nbsp;·&nbsp;
+      <a href="#">Termos de Uso</a> &nbsp;·&nbsp;
+      <a href="#">Contato</a>
+    </p>
+    <p style="margin-top:.75rem">© 2026 · Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<!-- STICKY CTA -->
+<div id="sticky-cta">
+  <div class="sticky-info">
+    <strong>HIIT Baseado em Evidências</strong>
+    <p>eBook + Masterclass + HIIT Lab · R$ 37,90</p>
+  </div>
+  <a href="https://pay.kiwify.com.br/azAiSmf" target="_blank" class="btn-primary">Garantir acesso</a>
+</div>
+
+<script>
+function toggleFaq(btn){
+  const item=btn.parentElement;
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+const stickyEl=document.getElementById('sticky-cta');
+new IntersectionObserver(entries=>{
+  entries.forEach(e=>stickyEl.classList.toggle('visible',!e.isIntersecting));
+},{threshold:.1}).observe(document.getElementById('hero'));
+</script>
+</body>
+</html>
